@@ -58,7 +58,7 @@ def affiche_resultat(meilleur_portfolio, cout, profit, duree):
 
     print(f"Coût   : {cout} $")
     print(f"Profit : {profit} $")
-    print(f"Calcul :  {duree} s")
+    print(f"Calcul : {duree} s")
 
 
 if __name__ == "__main__":
