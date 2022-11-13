@@ -9,8 +9,8 @@ DEBUT = time.time()
 
 def main():
     liste_actions = lire_donnees()
-    meilleur_portfolio, cout_portfolio, profit_portfolio = calc_resultat(liste_actions)
-    affiche_resultat(meilleur_portfolio, cout_portfolio, profit_portfolio)
+    meilleur_portfolio, cout_portfolio, profit_portfolio, duree = calc_resultat(liste_actions)
+    affiche_resultat(meilleur_portfolio, cout_portfolio, profit_portfolio, duree)
 
 
 def lire_donnees():
@@ -47,17 +47,18 @@ def calc_resultat(liste_actions):
                 meilleur_portfolio = portfolio
                 cout_portfolio = cout
 
-    return meilleur_portfolio, cout_portfolio, meilleur_profit / 100
+    duree = time.time() - DEBUT
+    return meilleur_portfolio, cout_portfolio, meilleur_profit / 100, duree
 
 
-def affiche_resultat(meilleur_portfolio, cout, profit):
+def affiche_resultat(meilleur_portfolio, cout, profit, duree):
     print(f"action,\t\tcoût($),\tprofit(%))")
     for action in meilleur_portfolio:
         print(f"{action[0]},\t{action[1]},\t\t{action[2]}")
 
     print(f"Coût   : {cout} $")
     print(f"Profit : {profit} $")
-    print(f"Calcul : ", time.time() - DEBUT, "s")
+    print(f"Calcul :  {duree} s")
 
 
 if __name__ == "__main__":
