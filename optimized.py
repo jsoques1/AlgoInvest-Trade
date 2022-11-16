@@ -3,33 +3,13 @@
 import csv
 import time
 import sys
-import os
-import psutil
+from tools import profile
+# import os
+# import psutil
 
 STEP = 100
 BUDGET = 500 * STEP
 DEBUT = time.time()
-
-
-def process_memory():
-    process = psutil.Process(os.getpid())
-    mem_info = process.memory_info()
-    return mem_info.rss
-
-
-# decorator function
-def profile(func):
-    def wrapper(*args, **kwargs):
-        mem_before = process_memory()
-        result = func(*args, **kwargs)
-        mem_after = process_memory()
-        print("{}:consumed memory: {:,}".format(
-            func.__name__,
-            mem_before, mem_after, mem_after - mem_before))
-
-        return result
-
-    return wrapper
 
 
 @profile
@@ -105,7 +85,7 @@ def affiche_resultat(meilleur_portfolio):
 
     cout = []
     profit = []
-
+    print(f"action,\t\tcoût(€),\trendement(%))")
     for action in meilleur_portfolio:
         print(f"{action[0]},\t{action[1] / STEP},\t{action[2]}")
         cout.append(action[1])
@@ -113,13 +93,9 @@ def affiche_resultat(meilleur_portfolio):
 
     print(f"\nCoût : {sum(cout) / 100} €")
     print(f"Profit : {sum(profit)} €")
-    print(f"Calcul : {duree} s\n")
+    print(f"Calcul : {duree} s")
 
 
 if __name__ == "__main__":
     main()
-    # if len(sys.argv) == 2:
-    #     main(sys.argv[1])
-    # else:
-    #     print(f"\nUsage: python optimized.py fichier_donnees\n")
-    #     sys.exit()
+

@@ -1,12 +1,14 @@
 from itertools import combinations
 import csv
 import time
+from tools import profile
 
 BUDGET = 500
 FICHIER_ACTIONS = "data/test_shares.csv"
 DEBUT = time.time()
 
 
+@profile
 def main():
     liste_actions = lire_donnees()
     meilleur_portfolio, cout_portfolio, profit_portfolio, duree = calc_resultat(liste_actions)
@@ -52,7 +54,7 @@ def calc_resultat(liste_actions):
 
 
 def affiche_resultat(meilleur_portfolio, cout, profit, duree):
-    print(f"action,\t\tcoût($),\tprofit(%))")
+    print(f"action,\t\tcoût(€),\trendement(%))")
     for action in meilleur_portfolio:
         print(f"{action[0]},\t{action[1]},\t\t{action[2]}")
 
