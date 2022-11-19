@@ -9,7 +9,6 @@ from tools import profile
 
 STEP = 100
 BUDGET = 500 * STEP
-DEBUT = time.time()
 
 
 @profile
@@ -17,11 +16,13 @@ def main():
     if len(sys.argv) == 2:
         fichier_csv = sys.argv[1]
     else:
-        print(f"\nUsage: python optimized.py fichier_donnees\n")
+        print(f"\nUsage: python {sys.argv[0]} fichier_donnees\n")
         sys.exit()
 
+    debut = time.time()
     liste_actions = lire_donnees(fichier_csv)
-    affiche_resultat(calc_knapsack_resultat(liste_actions))
+    meilleur_portfolio = calc_knapsack_resultat(liste_actions)
+    affiche_resultat(meilleur_portfolio, time.time() - debut)
 
 
 def lire_donnees(fichier):
@@ -80,14 +81,12 @@ def calc_knapsack_resultat(liste_actions):
     return meilleur_portfolio
 
 
-def affiche_resultat(meilleur_portfolio):
-    duree = time.time() - DEBUT
-
+def affiche_resultat(meilleur_portfolio, duree):
     cout = []
     profit = []
-    print(f"action,\t\tcoût(€),\trendement(%))")
+    print(f"action,\t\tcoût(€),\trendement(%)")
     for action in meilleur_portfolio:
-        print(f"{action[0]},\t{action[1] / STEP},\t{action[2]}")
+        print(f"{action[0]},\t{action[1] / STEP},\t\t{action[2]}")
         cout.append(action[1])
         profit.append(action[2])
 

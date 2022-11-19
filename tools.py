@@ -14,9 +14,7 @@ def profile(func):
         mem_before = process_memory()
         result = func(*args, **kwargs)
         mem_after = process_memory()
-        print("{}:consumed memory: {:,}".format(
-            func.__name__,
-            mem_before, mem_after, mem_after - mem_before))
+        print(f"Mémoire: +{mem_after - mem_before:,} octets")
 
         return result
 
