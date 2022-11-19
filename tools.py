@@ -19,5 +19,3 @@ def profile(func):
         return result
 
     return wrapper
-
-
