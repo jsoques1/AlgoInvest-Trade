@@ -4,8 +4,6 @@ import csv
 import time
 import sys
 from tools import profile
-# import os
-# import psutil
 
 STEP = 100
 BUDGET = 500 * STEP
@@ -36,7 +34,8 @@ def lire_donnees(fichier):
                 if float(ligne[1]) <= 0 or float(ligne[2]) <= 0:
                     pass
                 else:
-                    action = (ligne[0], int(float(ligne[1])*STEP), (float(ligne[1]) * float(ligne[2])) / 100)
+                    action = (ligne[0], int(float(ligne[1])*STEP), float(ligne[2]),
+                              (float(ligne[1]) * float(ligne[2])) / 100)
                     liste_actions.append(action)
 
             return liste_actions
@@ -54,7 +53,7 @@ def calc_knapsack_resultat(liste_actions):
 
     for action in liste_actions:
         cout.append(action[1])
-        profit.append(action[2])
+        profit.append(action[3])
 
     ks = [[0 for x in range(budget + 1)] for x in range(nb_actions + 1)]
 
@@ -84,13 +83,14 @@ def calc_knapsack_resultat(liste_actions):
 def affiche_resultat(meilleur_portfolio, duree):
     cout = []
     profit = []
-    print(f"action,\t\tcoût(€),\trendement(%)")
+    print(f"action,\t\tcoût(€)\t\trendement(%)")
+
     for action in meilleur_portfolio:
         print(f"{action[0]},\t{action[1] / STEP},\t\t{action[2]}")
         cout.append(action[1])
-        profit.append(action[2])
+        profit.append(action[3])
 
-    print(f"\nCoût : {sum(cout) / 100} €")
+    print(f"Coût : {sum(cout) / 100} €")
     print(f"Profit : {sum(profit)} €")
     print(f"Calcul : {duree} s")
 

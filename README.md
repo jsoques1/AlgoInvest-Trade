@@ -34,6 +34,5 @@ modules python - voir requirements.txt
 
 ### Optimized
 
-
     python .\optimized.py .\data\dataset1.csv (données ici(1) de Sienna)
 	python .\optimized.py .\data\dataset2.csv (données ici(2) de Sienna)
