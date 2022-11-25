@@ -62,9 +62,9 @@ def affiche_resultat(meilleur_portfolio, cout, profit, duree):
     for action in meilleur_portfolio:
         print(f"{action[0]},\t{action[1]},\t\t{action[2]}")
 
-    print(f"Coût   : {cout} €")
-    print(f"Profit : {profit} €")
-    print(f"Calcul : {duree} s")
+    print(f"Coût   : {round(cout, 2)} €")
+    print(f"Profit : {round(profit,2)} €")
+    print(f"Calcul : {round(duree,2)} s")
 
 
 if __name__ == "__main__":

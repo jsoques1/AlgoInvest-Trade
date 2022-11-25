@@ -92,9 +92,8 @@ def affiche_resultat(meilleur_portfolio, duree):
 
     print(f"Coût : {sum(cout) / 100} €")
     print(f"Profit : {sum(profit)} €")
-    print(f"Calcul : {duree} s")
+    print(f"Calcul : {round(duree, 2)} s")
 
 
 if __name__ == "__main__":
     main()
-
