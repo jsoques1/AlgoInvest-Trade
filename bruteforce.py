@@ -33,14 +33,26 @@ def lire_donnees(fichier_csv):
         return liste_actions
 
 
+def sacADos_force_brute(capacite, elements, elements_selection=[]):
+    if elements:
+        val1, lstVal1 = sacADos_force_brute(capacite, elements[1:], elements_selection)
+        val = elements[0]
+        if val[1] <= capacite:
+            val2, lstVal2 = sacADos_force_brute(capacite - val[1], elements[1:], elements_selection + [val])
+            if val1 < val2:
+                return val2, lstVal2
+
+        return val1, lstVal1
+    else:
+        return sum([i[2] for i in elements_selection]), elements_selection
+
+
 def calc_resultat(liste_actions):
     meilleur_profit = 0
     cout_portfolio = 0
     meilleur_portfolio = []
-
     for i in range(1, len(liste_actions) + 1):
         portfolios = combinations(liste_actions, i)
-
         for portfolio in portfolios:
             cout = 0
             total_profit = 0
@@ -49,13 +61,12 @@ def calc_resultat(liste_actions):
                 if cout <= BUDGET:
                     total_profit += action[3]
                 else:
-                    continue
+                    break
 
             if total_profit > meilleur_profit:
                 meilleur_profit = total_profit
                 meilleur_portfolio = portfolio
                 cout_portfolio = cout
-
 
     return meilleur_portfolio, cout_portfolio, meilleur_profit / 100
 
@@ -65,8 +76,8 @@ def affiche_resultat(meilleur_portfolio, cout, profit, duree):
     for action in meilleur_portfolio:
         print(f"{action[0]},\t{action[1]},\t\t{action[2]}")
 
-    print(f"Coût   : {cout} $")
-    print(f"Profit : {profit} $")
+    print(f"Coût   : {cout} €")
+    print(f"Profit : {profit} €")
     print(f"Calcul : {duree} s")
 
 
